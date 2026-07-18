@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SupplyIQ Dashboard</title>
+
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>SupplyIQ Dashboard</h1>
+
+            <p class="subtitle">
+                AI-powered Supply Chain & Operations Platform
+            </p>
+
+        </div>
+
+
+        <div class="header-actions">
+
+
+            <button class="btn export-btn" onclick="exportTable()">
+
+                ⬇ Export CSV
+
+            </button>
+
+
+            <button class="btn">
+
+                + Add Product
+
+            </button>
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+    <!-- KPI CARDS -->
+
+
+    <div class="cards">
+
+
+        <div class="card">
+
+            <h3>📦 Total Products</h3>
+
+            <p id="totalProducts">240</p>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h3>⚠ Low Stock</h3>
+
+            <p id="lowStock">15</p>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h3>💰 Inventory Value</h3>
+
+            <p>₹18.5L</p>
+
+        </div>
+
+
+
+        <div class="card">
+
+            <h3>🚚 Suppliers</h3>
+
+            <p>25</p>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- SEARCH -->
+
+
+    <div class="search-box">
+
+        <input 
+        type="text"
+        id="searchInput"
+        placeholder="Search Product">
+
+    </div>
+
+
+
+
+
+    <!-- FILTERS -->
+
+
+    <div class="filters">
+
+
+        <select id="yearFilter">
+
+            <option>2024</option>
+
+            <option>2025</option>
+
+            <option>2026</option>
+
+        </select>
+
+
+
+        <select id="supplierFilter">
+
+
+            <option>All Suppliers</option>
+
+            <option>Nova Electronics</option>
+
+            <option>Apex Components</option>
+
+            <option>Prime Logistics</option>
+
+            <option>BlueWave Distribution</option>
+
+            <option>Zenith Supplies</option>
+
+            <option>Metro Industrial</option>
+
+            <option>Vertex Manufacturing</option>
+
+            <option>Orion Supply Chain</option>
+
+            <option>Skyline Traders</option>
+
+            <option>ABC Corp</option>
+
+            <option>Global Trade Ltd</option>
+
+
+        </select>
+
+
+
+
+        <select id="categoryFilter">
+
+
+            <option>All Categories</option>
+
+            <option>Electronics</option>
+
+            <option>Components</option>
+
+            <option>Transportation</option>
+
+            <option>Logistics</option>
+
+            <option>Office Supplies</option>
+
+            <option>Industrial Equipment</option>
+
+            <option>Manufacturing</option>
+
+
+        </select>
+
+
+    </div>
+
+
+
+
+
+    <!-- TABLE + CHART GRID -->
+
+
+    <!-- INVENTORY TABLE -->
+<!-- INVENTORY TABLE -->
+<div class="table-section">
+    <table id="productTable">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for product in products %}
+            <tr data-category="{{ product.category }}"
+                data-supplier="{{ product.supplier }}">
+
+                <td><strong>{{ product.name }}</strong></td>
+                <td>{{ product.category }}</td>
+                <td>₹{{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+
+                <td>
+                    {% if product.stock < 10 %}
+                        <span class="low-stock">Low Stock</span>
+                    {% else %}
+                        <span class="in-stock">In Stock</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- INVENTORY DISTRIBUTION CHART -->
+</div> <!-- closes container -->
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+</body>
+</html>
+    
+
+
+
+            
+
+
+
+    
